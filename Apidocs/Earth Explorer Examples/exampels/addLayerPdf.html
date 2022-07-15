@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>矢量图层pbf</h1>
+    <p>矢量图层pbf</p>
+    <button onclick="addPoint()" style="float: right;">添加矢量图层pbf</button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              layerName: "pbf",
+              id: "pbf",
+              method: "pbf",
+              url:
+                "https://vstyles.mapplus.cn/v1.0/styles/bj_500_dz/style.json",
+              viewPort: [116.3, 39.9, 1000000]
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>矢量图层tms</h1>
+    <p>矢量图层tms</p>
+    <button onclick="addPoint()" style="float: right;">添加tms</button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              layerName: "0 Smooth Coastline",
+              id: "cdcca47f-c170-455d-9083-5c3f29e44b39",
+              url:
+                "https://deep-time.org/geoserver/gwc/service/tms/1.0.0/ADMIN:fx_vector_smooth_pl_shp_landfrac_a_54@EPSG:4326@png/{z}/{x}/{reverseY}.png",
+              method: "tms",
+              sourceLayer: "smooth_pl_shp_landfrac_a_54"
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>栅格图层wms案例</h1>
+    <p>栅格图层wms案例</p>
+    <button onclick="addPoint()" style="float: right;">添加栅格图层wms</button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              id: "wms-test",
+              layerName: "Geotectonic Map of China",
+              url:
+                "https://igss.cgs.gov.cn:6160/igs/rest/ogc/doc/MAPGIS16_20200228_ZSZ1Olqo/WMSServer",
+              method: "wms",
+              queryParameters: {
+                tk:
+                  "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlZWNmM2Q2Mi03MjJjLTRiNzItYTMyNi01ZWU1MjEyNzAzMjkifQ.q1e0-idNxcszilHs8k1-OJ1MrtL_CvB_Skx_kTRbnP4"
+              },
+              sourceLayer: "MAPGIS16_20200228_ZSZ1Olqo"
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

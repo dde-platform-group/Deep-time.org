@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>面geojson案例</h1>
+    <p>面geojson案例</p>
+    <button onclick="addPoint()" style="float: right;">添加面geojson</button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              layerName: "primitive-polygon-heat",
+              id: "primitive-polygon-heat",
+              url:
+                "https://resource.deep-time.org/resource/testdem/California_heat.geojson",
+              method: "primitive",
+              renderOptions: {
+                color: { r: 0, g: 255, b: 255, a: 1 },
+                "outline-color": { r: 255, g: 255, b: 255, a: 0.8 },
+                "outline-width": 2,
+                opacity: 1
+              }
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

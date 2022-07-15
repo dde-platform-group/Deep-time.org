@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>更改底图为ESRI全球底图</h1>
+    <p>点击按钮更改底图为ESRI全球底图</p>
+    <button onclick="addPoint()" style="float: right;">
+      更改
+    </button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "mapConfig",
+          body: {
+            baseMap: {
+              layerName: "ESRI全球底图",
+              id: "底图-ESRI全球底图",
+              method: "arcgis",
+              url:
+                "http://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer",
+              imageURL:
+                "https://sandcastle.cesium.com/CesiumUnminified/Widgets/Images/ImageryProviders/esriWorldImagery.png"
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

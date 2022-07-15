@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>根据id移除数据集</h1>
+    <p>打开图层管理查看数据集</p>
+    <button onclick="addPoint()" style="float: right;">添加数据集</button>
+    <button onclick="remove()" style="float: right;">移除数据集</button>
+    <button onclick="componentConfig()" style="float: right;">
+      打开图层管理
+    </button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addDataSet",
+          body: {
+            name: "testDataSet",
+            id: "5fd7fd2c-8140-42d5-b5bd-55f2061b3c3b"
+          }
+        },
+        "*"
+      );
+    }
+    function componentConfig() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "componentConfig",
+          body: {
+            layerManage: {
+              datasetManage: {
+                disableRemove: false,
+                hideLayerPlayer: true
+              }
+            }
+          }
+        },
+        "*"
+      );
+    }
+    function remove() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "removeDataSet",
+          body: {
+            id: "5fd7fd2c-8140-42d5-b5bd-55f2061b3c3b"
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

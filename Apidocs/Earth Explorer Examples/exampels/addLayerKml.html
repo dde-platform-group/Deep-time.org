@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>KML图层</h1>
+    <p>11111111111</p>
+    <button onclick="addPoint()" style="float: right;">添加KML图层</button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              layerName: "kml",
+              id: "kml",
+              method: "kml",
+              url:
+                "https://resource.deep-time.org/resource/exampleData/mission_1.kml",
+              viewPort: [116.3, 39.9, 1000000]
+            },
+            options: {
+              zoom: true
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>通过geojson创建mapv图层</h1>
+    <p>通过geojson创建mapv图层</p>
+    <button onclick="addPoint()" style="float: right;">
+      添加geojson创建mapv图层
+    </button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              id: "honeycomb",
+              layerName: "earthquakes-honeycomb",
+              url:
+                "https://resource.deep-time.org/resource/exampleData/sample_earthquack.geojson",
+              method: "mapv",
+              renderOptions: {
+                draw: "honeycomb",
+                shadowColor: "black",
+                shadowBlur: 10,
+                size: 50,
+                gradient: [
+                  "#313695",
+                  "#4575b4",
+                  "#74add1",
+                  "#abd9e9",
+                  "#e0f3f8",
+                  "#ffffbf",
+                  "#fee090",
+                  "#fdae61",
+                  "#f46d43",
+                  "#d73027",
+                  "#a50026"
+                ],
+                globalAlpha: 0.8,
+                label: {
+                  show: true,
+                  fillStyle: "white"
+                }
+              }
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>通过点geojson创建热力图</h1>
+    <p>通过点geojson创建热力图</p>
+    <button onclick="addPoint()" style="float: right;">
+      添加点geojson创建热力图
+    </button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              id: "heatmap",
+              layerName: "earthquakes-heat",
+              url:
+                "https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson",
+              method: "heat",
+              renderOptions: {
+                blur: 0.85,
+                maxOpacity: 0.8,
+                minOpacity: 0,
+                opacity: 0.8,
+                radius: 10,
+                gradient: [
+                  "#313695",
+                  "#4575b4",
+                  "#74add1",
+                  "#abd9e9",
+                  "#e0f3f8",
+                  "#ffffbf",
+                  "#fee090",
+                  "#fdae61",
+                  "#f46d43",
+                  "#d73027",
+                  "#a50026"
+                ]
+              }
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>

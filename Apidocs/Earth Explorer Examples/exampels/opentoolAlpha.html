@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mapview-example</title>
+  </head>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 5rem;
+    }
+    #mapView {
+      height: 800px;
+      width: 100%;
+    }
+    a {
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      z-index: 10;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+
+  <body>
+    <a href="../index.html">home</a>
+    <h1>调整栅格图层透明度</h1>
+    <p>打开栅格图层后，点击按钮调整栅格图层透明度</p>
+    <button onclick="addPoint()" style="float: right;">打开图层</button>
+    <button onclick="check()" style="float: right;">调整</button>
+    <iframe id="mapView" src="https://deep-time.org/map/#/showcase"></iframe>
+  </body>
+  <script>
+    const Iframe = document.getElementById("mapView");
+    function addPoint() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "addLayer",
+          body: {
+            layer: {
+              id: "pic-1",
+              layerName: "pic-test",
+              boundary: "POLYGON((-180 0,0 90,180 0,0 -90,-180 0))",
+              url:
+                "https://deepengine.oss-cn-hangzhou.aliyuncs.com/workspace/ADMIN/share/tif/000_v21144.bmp",
+              method: "pic"
+            }
+          }
+        },
+        "*"
+      );
+    }
+    function check() {
+      Iframe.contentWindow.postMessage(
+        {
+          type: "renderLayer",
+          body: {
+            id: "pic-1",
+            options: {
+              alpha: 0.5
+            }
+          }
+        },
+        "*"
+      );
+    }
+  </script>
+</html>
